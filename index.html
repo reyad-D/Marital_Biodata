@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Biodata Creator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcfbf7;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 { color: #900020; }
+        
+        .form-section { display: block; }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .file-upload {
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #900020;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .btn:hover { background-color: #700018; }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #900020;
+            color: #900020;
+            margin-right: 10px;
+        }
+        .preview-section { 
+            display: none;
+            border: 5px double #900020;
+            padding: 30px;
+        }
+
+        .bio-header {
+            text-align: center;
+            border-bottom: 2px solid #daa520;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .bio-photo {
+            display: block;
+            width: 150px;
+            height: 180px;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+            border: 1px solid #ccc;
+            background-color: #eee;
+        }
+
+        .bio-row {
+            display: flex;
+            margin-bottom: 12px;
+            border-bottom: 1px dotted #eee;
+            padding-bottom: 5px;
+        }
+
+        .bio-label {
+            width: 40%;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .bio-value {
+            width: 60%;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .section-header {
+            background-color: #900020;
+            color: white;
+            padding: 5px 10px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        @media print {
+            body { background-color: white; }
+            .container { box-shadow: none; border: none; width: 100%; }
+            .btn-area { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="formView" class="form-section">
+            <h1 style="text-align: center;">Create Marriage Biodata</h1>
+            <p style="text-align: center; margin-bottom: 30px;">Enter your details below to make a Marriage Biodata.</p>
+
+            <form onsubmit="event.preventDefault(); generateBiodata();">
+                
+                <div class="file-upload">
+                    <label>Upload Profile Photo</label>
+                    <input type="file" id="photoInput" accept="image/*">
+                </div>
+
+                <h3>Personal Details</h3>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob">
+                    </div>
+                    <div class="form-group">
+                        <label>Time of Birth</label>
+                        <input type="time" id="tob">
+                    </div>
+                    <div class="form-group">
+                        <label>Place of Birth</label>
+                        <input type="text" id="pob" placeholder="Village, City, Country">
+                    </div>
+                    <div class="form-group">
+                        <label>Height</label>
+                        <input type="text" id="height" placeholder="e.g. 5'10&quot;">
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <input type="text" id="bloodGroup" placeholder="e.g. B+">
+                    </div>
+                    <div class="form-group">
+                        <label>Education</label>
+                        <input type="text" id="education" placeholder="Degree/University">
+                    </div>
+                    <div class="form-group">
+                        <label>Occupation</label>
+                        <input type="text" id="job" placeholder="Job Title & Company">
+                    </div>
+                </div>
+
+                <h3>Family Details</h3>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Father's Name</label>
+                        <input type="text" id="fatherName" placeholder="Enter full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Occupation</label>
+                        <input type="text" id="fatherJob" placeholder="Job Title & Company">
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Name</label>
+                        <input type="text" id="motherName" placeholder="Enter full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Siblings</label>
+                        <input type="text" id="siblings" placeholder="e.g. 1 Brother, 1 Sister">
+                    </div>
+                </div>
+
+                <h3>Contact Details</h3>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="text" id="contactNumber" placeholder="Enter your contact number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mail Address</label>
+                        <input type="text" id="mailAddress" placeholder="Enter your mail address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="address">
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="submit" class="btn">Generate Biodata</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="biodataView" class="preview-section">
+            
+            <div class="bio-header">
+                <h1 style="margin:0;">MARRIAGE BIODATA</h1>
+            </div>
+
+            <img id="imgPreview" class="bio-photo" src="" alt="Profile Photo">
+
+            <div class="section-header">Personal Details</div>
+            
+            <div class="bio-row"><div class="bio-label">Name:</div><div class="bio-value" id="dispName"></div></div>
+            <div class="bio-row"><div class="bio-label">Date of Birth:</div><div class="bio-value" id="dispDob"></div></div>
+            <div class="bio-row"><div class="bio-label">Time of Birth:</div><div class="bio-value" id="dispTob"></div></div>
+            <div class="bio-row"><div class="bio-label">Place of Birth:</div><div class="bio-value" id="dispPob"></div></div>
+            <div class="bio-row"><div class="bio-label">Height:</div><div class="bio-value" id="dispHeight"></div></div>
+            <div class="bio-row"><div class="bio-label">Complexion:</div><div class="bio-value" id="dispComplexion"></div></div>
+            <div class="bio-row"><div class="bio-label">Education:</div><div class="bio-value" id="dispEducation"></div></div>
+            <div class="bio-row"><div class="bio-label">Occupation:</div><div class="bio-value" id="dispJob"></div></div>
+
+            <div class="section-header">Family Background</div>
+            
+            <div class="bio-row"><div class="bio-label">Father's Name:</div><div class="bio-value" id="dispFather"></div></div>
+            <div class="bio-row"><div class="bio-label">Father's Occupation:</div><div class="bio-value" id="dispFatherJob"></div></div>
+            <div class="bio-row"><div class="bio-label">Mother's Name:</div><div class="bio-value" id="dispMother"></div></div>
+            <div class="bio-row"><div class="bio-label">Siblings:</div><div class="bio-value" id="dispSiblings"></div></div>
+
+            <div class="section-header">Contact Information</div>
+            
+            <div class="bio-row"><div class="bio-label">Mobile No:</div><div class="bio-value" id="dispMobile"></div></div>
+            <div class="bio-row"><div class="bio-label">Address:</div><div class="bio-value" id="dispAddress"></div></div>
+
+            <div class="btn-area" style="text-align: center; margin-top: 40px;">
+                <button onclick="goBack()" class="btn btn-outline">Edit Details</button>
+                <button onclick="window.print()" class="btn">Print / Save PDF</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function generateBiodata() {
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            const tob = document.getElementById('tob').value;
+            const pob = document.getElementById('pob').value;
+            const height = document.getElementById('height').value;
+            const complexion = document.getElementById('complexion').value;
+            const education = document.getElementById('education').value;
+            const job = document.getElementById('job').value;
+            
+            const father = document.getElementById('fatherName').value;
+            const fatherJob = document.getElementById('fatherJob').value;
+            const mother = document.getElementById('motherName').value;
+            const siblings = document.getElementById('siblings').value;
+            
+            const mobile = document.getElementById('mobile').value;
+            const address = document.getElementById('address').value;
+
+            document.getElementById('dispName').innerText = name;
+            document.getElementById('dispDob').innerText = dob;
+            document.getElementById('dispTob').innerText = tob;
+            document.getElementById('dispPob').innerText = pob;
+            document.getElementById('dispHeight').innerText = height;
+            document.getElementById('dispComplexion').innerText = complexion;
+            document.getElementById('dispEducation').innerText = education;
+            document.getElementById('dispJob').innerText = job;
+            
+            document.getElementById('dispFather').innerText = father;
+            document.getElementById('dispFatherJob').innerText = fatherJob;
+            document.getElementById('dispMother').innerText = mother;
+            document.getElementById('dispSiblings').innerText = siblings;
+            
+            document.getElementById('dispMobile').innerText = mobile;
+            document.getElementById('dispAddress').innerText = address;
+
+            const fileInput = document.getElementById('photoInput');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imgPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+
+            document.getElementById('formView').style.display = 'none';
+            document.getElementById('biodataView').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function goBack() {
+            document.getElementById('formView').style.display = 'block';
+            document.getElementById('biodataView').style.display = 'none';
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
